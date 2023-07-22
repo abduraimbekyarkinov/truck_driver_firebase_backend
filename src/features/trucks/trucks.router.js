@@ -4,6 +4,7 @@ const controller = require('./trucks.controller');
 const router = express.Router();
 
 router.get('/', controller.getAllTrucks);
+router.post('/', controller.createTruck);
 router.get('/:driverUid', controller.getTuckByDriver);
 router.get('/info/:vin', controller.getTruckInfoFromVpic);
 

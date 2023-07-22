@@ -64,6 +64,16 @@ class TruckModel {
     );
   }
 
+  toJson() {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  async create() {
+    const ref = firebaseDatabase.ref(`trucks/${this.driverUid}`);
+    await ref.set(this.toJson());
+    return TruckModel.getTruckByDriver(this.driverUid);
+  }
+
   static async getAllTrucks() {
     const ref = firebaseDatabase.ref('trucks');
     const snapshot = await ref.get();

@@ -38,6 +38,34 @@ exports.getTuckByDriver = (req, res) => {
   });
 };
 
+exports.createTruck = (req, res) => {
+  guard(res, async () => {
+    const truck = TruckModel.fromJson(req.body);
+
+    if (!truck.driverUid) {
+      return res.status(422).json({
+        ok: false,
+        status: 422,
+        message: 'Driver UID not given.',
+      });
+    }
+
+    const createdTruck = await truck.create();
+
+    if (createdTruck) {
+      res.status(200).json({
+        ok: true,
+        status: 200,
+        data: {
+          truck: createdTruck,
+        },
+      });
+    } else {
+      throw 'Currently created truck not found.';
+    }
+  });
+};
+
 exports.getTruckInfoFromVpic = (req, res) => {
   guard(res, async () => {
     const vin = req.params['vin'];
