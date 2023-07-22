@@ -66,6 +66,17 @@ exports.createTruck = (req, res) => {
   });
 };
 
+exports.deleteTruckByDriver = (req, res) => {
+  guard(res, async () => {
+    const driverUid = req.params['driverUid'];
+    await TruckModel.deleteTruckByDriver(driverUid);
+    res.status(200).json({
+      ok: true,
+      status: 200,
+    });
+  });
+};
+
 exports.getTruckInfoFromVpic = (req, res) => {
   guard(res, async () => {
     const vin = req.params['vin'];

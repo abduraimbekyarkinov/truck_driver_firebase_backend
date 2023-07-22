@@ -74,6 +74,11 @@ class TruckModel {
     return TruckModel.getTruckByDriver(this.driverUid);
   }
 
+  static async deleteTruckByDriver(driverUid) {
+    const ref = firebaseDatabase.ref(`trucks/${driverUid}`);
+    await ref.remove();
+  }
+
   static async getAllTrucks() {
     const ref = firebaseDatabase.ref('trucks');
     const snapshot = await ref.get();

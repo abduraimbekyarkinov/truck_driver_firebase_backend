@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/', controller.getAllTrucks);
 router.post('/', controller.createTruck);
+router.delete('/:driverUid', controller.deleteTruckByDriver);
 router.get('/:driverUid', controller.getTuckByDriver);
 router.get('/info/:vin', controller.getTruckInfoFromVpic);
 
