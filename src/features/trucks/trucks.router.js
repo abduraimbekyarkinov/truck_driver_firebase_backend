@@ -1,13 +1,14 @@
 const express = require('express');
 const controller = require('./trucks.controller');
+const authMiddleware = require('../../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.get('/', controller.getAllTrucks);
-router.post('/', controller.createTruck);
-router.delete('/:driverUid', controller.deleteTruckByDriver);
-router.get('/:driverUid', controller.getTuckByDriver);
-router.get('/info/:vin', controller.getTruckInfoFromVpic);
+router.get('/', authMiddleware, controller.getAllTrucks);
+router.post('/mine', authMiddleware, controller.createTruck);
+router.delete('/mine', authMiddleware, controller.deleteTruck);
+router.get('/mine', authMiddleware, controller.getTruck);
+router.get('/info/:vin', authMiddleware, controller.getTruckInfoFromVpic);
 
 module.exports = {
   path: '/trucks',

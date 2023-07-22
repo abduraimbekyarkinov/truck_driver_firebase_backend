@@ -4,6 +4,7 @@ const homeRouter = require('./features/home/home.router');
 const loadsRouter = require('./features/loads/loads.router');
 const servicesRouter = require('./features/services/services.router');
 const trucksRouter = require('./features/trucks/trucks.router');
+const driversRouter = require('./features/drivers/drivers.router');
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.use(homeRouter.path, homeRouter.router);
 app.use(loadsRouter.path, loadsRouter.router);
 app.use(servicesRouter.path, servicesRouter.router);
 app.use(trucksRouter.path, trucksRouter.router);
+app.use(driversRouter.path, driversRouter.router);
 
 module.exports = app;

@@ -2,7 +2,7 @@ const firebaseDatabase = require('../../common/firebase.database');
 
 class TruckModel {
   constructor(
-    driverUid,
+    userUid,
     GCWR,
     GVWR,
     Make,
@@ -21,7 +21,7 @@ class TruckModel {
     WheelSizeRear,
     Wheels
   ) {
-    this.driverUid = driverUid;
+    this.userUid = userUid;
     this.GCWR = GCWR;
     this.GVWR = GVWR;
     this.Make = Make;
@@ -43,7 +43,7 @@ class TruckModel {
 
   static fromJson(json) {
     return new TruckModel(
-      json.driverUid,
+      json.userUid,
       json.GCWR,
       json.GVWR,
       json.Make,
@@ -74,8 +74,8 @@ class TruckModel {
     return TruckModel.getTruckByDriver(this.driverUid);
   }
 
-  static async deleteTruckByDriver(driverUid) {
-    const ref = firebaseDatabase.ref(`trucks/${driverUid}`);
+  static async deleteTruckByUserUid(userUid) {
+    const ref = firebaseDatabase.ref(`trucks/${userUid}`);
     await ref.remove();
   }
 
@@ -89,8 +89,8 @@ class TruckModel {
     return trucks;
   }
 
-  static async getTruckByDriver(driverUid) {
-    const ref = firebaseDatabase.ref(`trucks/${driverUid}`);
+  static async getTruckByUserUid(userUid) {
+    const ref = firebaseDatabase.ref(`trucks/${userUid}`);
     const snapshot = await ref.get();
     if (snapshot.exists()) {
       return TruckModel.fromJson(snapshot.val());
@@ -101,24 +101,3 @@ class TruckModel {
 }
 
 module.exports = TruckModel;
-
-// {
-//   "GCWR": "",
-//   "GVWR": "Class 1D: 5,001 - 6,000 lb (2,268 - 2,722 kg)",
-//   "Make": "ACURA",
-//   "MakeID": "475",
-//   "Manufacturer": "HONDA OF CANADA MFG., INC.",
-//   "ManufacturerId": "990",
-//   "Model": "MDX",
-//   "ModelID": "2147",
-//   "ModelYear": "2013",
-//   "VIN": "2HNYD2H85DH001041",
-//   "VehicleType": "MULTIPURPOSE PASSENGER VEHICLE (MPV)",
-//   "WheelBaseLong": "",
-//   "WheelBaseShort": "",
-//   "WheelBaseType": "",
-//   "WheelSizeFront": "",
-//   "WheelSizeRear": "",
-//   "Wheels": "",
-//   "driverUid": "07M0mqfPXAW05sw3f2MTUpNaEd82"
-// }

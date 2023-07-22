@@ -15,10 +15,9 @@ exports.getAllTrucks = (req, res) => {
   });
 };
 
-exports.getTuckByDriver = (req, res) => {
+exports.getTruck = (req, res) => {
   guard(res, async () => {
-    const driverUid = req.params['driverUid'];
-    const truck = await TruckModel.getTruckByDriver(driverUid);
+    const truck = await TruckModel.getTruckByUserUid(req.userUid);
 
     if (truck) {
       res.status(200).json({
@@ -41,14 +40,7 @@ exports.getTuckByDriver = (req, res) => {
 exports.createTruck = (req, res) => {
   guard(res, async () => {
     const truck = TruckModel.fromJson(req.body);
-
-    if (!truck.driverUid) {
-      return res.status(422).json({
-        ok: false,
-        status: 422,
-        message: 'Driver UID not given.',
-      });
-    }
+    truck.userUid = req.userUid;
 
     const createdTruck = await truck.create();
 
@@ -66,10 +58,9 @@ exports.createTruck = (req, res) => {
   });
 };
 
-exports.deleteTruckByDriver = (req, res) => {
+exports.deleteTruck = (req, res) => {
   guard(res, async () => {
-    const driverUid = req.params['driverUid'];
-    await TruckModel.deleteTruckByDriver(driverUid);
+    await TruckModel.deleteTruckByUserUid(req.userUid);
     res.status(200).json({
       ok: true,
       status: 200,
@@ -105,6 +96,7 @@ exports.getTruckInfoFromVpic = (req, res) => {
     }
 
     const truck = TruckModel.fromJson(data);
+    truck.userUid = req.userUid;
     return res.status(200).json({
       ok: true,
       status: 200,
