@@ -1,5 +1,4 @@
 const admin = require('firebase-admin');
-const { getDatabase } = require('firebase-admin/database');
 const config = require('../config');
 
 const firebaseApp =
@@ -16,8 +15,4 @@ const firebaseApp =
 
 global.firebaseApp = firebaseApp;
 
-const firebaseDatabase = getDatabase(firebaseApp);
-
-module.exports = {
-  firebaseDatabase,
-};
+module.exports = firebaseApp;

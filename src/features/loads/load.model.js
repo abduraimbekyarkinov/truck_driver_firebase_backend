@@ -1,4 +1,4 @@
-const { firebaseDatabase } = require('../../modules/firebase');
+const firebaseDatabase = require('../../common/firebase.database');
 
 class LoadModel {
   static async getAllLoads() {
