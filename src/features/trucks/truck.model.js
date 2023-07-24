@@ -69,9 +69,9 @@ class TruckModel {
   }
 
   async create() {
-    const ref = firebaseDatabase.ref(`trucks/${this.driverUid}`);
+    const ref = firebaseDatabase.ref(`trucks/${this.userUid}`);
     await ref.set(this.toJson());
-    return TruckModel.getTruckByDriver(this.driverUid);
+    return TruckModel.getTruckByUserUid(this.userUid);
   }
 
   static async deleteTruckByUserUid(userUid) {
