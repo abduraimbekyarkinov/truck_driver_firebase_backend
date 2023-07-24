@@ -13,6 +13,16 @@ app.use('*', (req, res) => {
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.log(err);
+
+  // LIMIT_FILE_SIZE
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    return res.status(403).json({
+      ok: false,
+      status: 403,
+      message: 'Maximum file size is 2 MB.',
+    });
+  }
+
   res.status(500).json({
     ok: false,
     status: 500,
