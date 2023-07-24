@@ -18,7 +18,7 @@ exports.updateDriver = (req, res) => {
   guard(res, async () => {
     const { displayName, phoneNumber, photoURL } = req.body;
     const driver = await DriverModel.updateDriver(
-      req.uid,
+      req.userUid,
       displayName,
       phoneNumber,
       photoURL
